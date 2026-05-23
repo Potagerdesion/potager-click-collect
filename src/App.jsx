@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
+
 const INITIAL_PRODUCTS = [
   { id: 1, name: "Tomates cerises", category: "Légumes", price: 3.5, stock: 20, unit: "barquette 250g", emoji: "🍅", desc: "Variétés anciennes, récoltées à maturité" },
   { id: 2, name: "Courgettes", category: "Légumes", price: 1.2, stock: 15, unit: "pièce", emoji: "🥒", desc: "Vertes et jaunes, fraîchement cueillies" },
@@ -21,10 +23,6 @@ const SLOTS = [
 
 const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚"];
 
-function fakeCharge() {
-  return new Promise((res) => setTimeout(() => res({ success: true, id: "pi_" + Math.random().toString(36).slice(2, 10) }), 1800));
-}
-
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
 const card = { background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 16, padding: "18px 20px" };
@@ -36,7 +34,6 @@ function btnRound(bg, color, disabled = false) {
   return { background: disabled ? "#ddd" : bg, color: disabled ? "#aaa" : color, border: "none", borderRadius: 99, padding: "6px 14px", fontWeight: 700, fontSize: 14, cursor: disabled ? "not-allowed" : "pointer" };
 }
 
-// ─── Product Card ─────────────────────────────────────────────────────────────
 function ProductCard({ product, qty, onAdd, onRemove }) {
   const stockColor = product.stock === 0 ? "#e55" : product.stock < 5 ? "#e8a020" : "#3a6e3a";
   const stockLabel = product.stock === 0 ? "Épuisé" : product.stock < 5 ? `Plus que ${product.stock}` : `${product.stock} dispo`;
@@ -65,7 +62,6 @@ function ProductCard({ product, qty, onAdd, onRemove }) {
   );
 }
 
-// ─── Product Form (ajout / édition) ──────────────────────────────────────────
 function ProductForm({ initial, onSave, onCancel }) {
   const empty = { name: "", category: "Légumes", price: "", stock: "", unit: "", emoji: "🥕", desc: "" };
   const [form, setForm] = useState(initial || empty);
@@ -85,8 +81,6 @@ function ProductForm({ initial, onSave, onCancel }) {
         <h3 style={{ fontFamily: "'Playfair Display', serif", marginTop: 0, fontSize: 20 }}>
           {initial ? "✏️ Modifier le produit" : "➕ Nouveau produit"}
         </h3>
-
-        {/* Emoji picker */}
         <div style={{ marginBottom: 14 }}>
           <label style={labelStyle}>Icône</label>
           <button onClick={() => setShowEmoji(s => !s)} style={{ fontSize: 32, background: "#f5f0e8", border: "1.5px solid #ddd", borderRadius: 12, padding: "8px 16px", cursor: "pointer" }}>
@@ -103,16 +97,14 @@ function ProductForm({ initial, onSave, onCancel }) {
             </div>
           )}
         </div>
-
         <div style={{ marginBottom: 12 }}>
           <label style={labelStyle}>Nom du produit *</label>
           <input value={form.name} onChange={e => set("name", e.target.value)} placeholder="ex: Tomates cerises" style={inputStyle} />
         </div>
-
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
           <div>
             <label style={labelStyle}>Catégorie</label>
-            <select value={form.category} onChange={e => set("category", e.target.value)} style={{ ...inputStyle }}>
+            <select value={form.category} onChange={e => set("category", e.target.value)} style={inputStyle}>
               <option>Légumes</option>
               <option>Fruits</option>
               <option>Herbes</option>
@@ -124,7 +116,6 @@ function ProductForm({ initial, onSave, onCancel }) {
             <input value={form.price} onChange={e => set("price", e.target.value)} placeholder="3.50" type="number" step="0.10" style={inputStyle} />
           </div>
         </div>
-
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
           <div>
             <label style={labelStyle}>Stock *</label>
@@ -132,15 +123,13 @@ function ProductForm({ initial, onSave, onCancel }) {
           </div>
           <div>
             <label style={labelStyle}>Unité</label>
-            <input value={form.unit} onChange={e => set("unit", e.target.value)} placeholder="kg, pièce, barquette…" style={inputStyle} />
+            <input value={form.unit} onChange={e => set("unit", e.target.value)} placeholder="kg, pièce…" style={inputStyle} />
           </div>
         </div>
-
         <div style={{ marginBottom: 16 }}>
           <label style={labelStyle}>Description courte</label>
           <input value={form.desc} onChange={e => set("desc", e.target.value)} placeholder="ex: Récoltées le matin même" style={inputStyle} />
         </div>
-
         <div style={{ display: "flex", gap: 10 }}>
           <button onClick={onCancel} style={{ flex: 1, padding: 12, borderRadius: 12, border: "1.5px solid #ddd", background: "#fff", cursor: "pointer", fontWeight: 600 }}>Annuler</button>
           <button onClick={handleSave} style={{ flex: 2, padding: 12, borderRadius: 12, border: "none", background: "#3a6e3a", color: "#fff", fontWeight: 700, fontSize: 16, cursor: "pointer" }}>
@@ -152,7 +141,6 @@ function ProductForm({ initial, onSave, onCancel }) {
   );
 }
 
-// ─── Admin Panel ──────────────────────────────────────────────────────────────
 function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose }) {
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
@@ -161,13 +149,8 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
   return (
     <div>
       {(editing || adding) && (
-        <ProductForm
-          initial={editing}
-          onSave={(p) => { onSave(p); setEditing(null); setAdding(false); }}
-          onCancel={() => { setEditing(null); setAdding(false); }}
-        />
+        <ProductForm initial={editing} onSave={(p) => { onSave(p); setEditing(null); setAdding(false); }} onCancel={() => { setEditing(null); setAdding(false); }} />
       )}
-
       {confirmDelete && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
           <div style={{ background: "#fff", borderRadius: 16, padding: 24, maxWidth: 320, textAlign: "center" }}>
@@ -176,29 +159,18 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
             <p style={{ color: "#888", fontSize: 14 }}>Cette action est irréversible.</p>
             <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
               <button onClick={() => setConfirmDelete(null)} style={{ flex: 1, padding: 12, borderRadius: 10, border: "1.5px solid #ddd", background: "#fff", cursor: "pointer", fontWeight: 600 }}>Annuler</button>
-              <button onClick={() => { onDelete(confirmDelete.id); setConfirmDelete(null); }}
-                style={{ flex: 1, padding: 12, borderRadius: 10, border: "none", background: "#e55", color: "#fff", fontWeight: 700, cursor: "pointer" }}>
-                Supprimer
-              </button>
+              <button onClick={() => { onDelete(confirmDelete.id); setConfirmDelete(null); }} style={{ flex: 1, padding: 12, borderRadius: 10, border: "none", background: "#e55", color: "#fff", fontWeight: 700, cursor: "pointer" }}>Supprimer</button>
             </div>
           </div>
         </div>
       )}
-
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, margin: 0 }}>🌱 Gestion des produits</h2>
         <button onClick={onClose} style={{ background: "#fde0e0", border: "none", borderRadius: 8, padding: "6px 14px", cursor: "pointer", fontWeight: 700 }}>Fermer</button>
       </div>
-
-      <button onClick={() => setAdding(true)} style={{
-        width: "100%", padding: "14px", marginBottom: 20,
-        background: "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff",
-        border: "none", borderRadius: 14, fontWeight: 700, fontSize: 16, cursor: "pointer",
-        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-      }}>
+      <button onClick={() => setAdding(true)} style={{ width: "100%", padding: "14px", marginBottom: 20, background: "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff", border: "none", borderRadius: 14, fontWeight: 700, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
         ➕ Ajouter un nouveau produit
       </button>
-
       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
         {products.map(p => (
           <div key={p.id} style={{ ...card, display: "flex", alignItems: "center", gap: 12 }}>
@@ -214,17 +186,12 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
-              <button onClick={() => setEditing(p)} style={{ padding: "6px 14px", borderRadius: 8, border: "1.5px solid #3a6e3a", background: "#e8f5e8", color: "#3a6e3a", fontWeight: 700, cursor: "pointer", fontSize: 13 }}>
-                ✏️ Modifier
-              </button>
-              <button onClick={() => setConfirmDelete(p)} style={{ padding: "6px 14px", borderRadius: 8, border: "1.5px solid #e55", background: "#fde0e0", color: "#c00", fontWeight: 700, cursor: "pointer", fontSize: 13 }}>
-                🗑️ Supprimer
-              </button>
+              <button onClick={() => setEditing(p)} style={{ padding: "6px 14px", borderRadius: 8, border: "1.5px solid #3a6e3a", background: "#e8f5e8", color: "#3a6e3a", fontWeight: 700, cursor: "pointer", fontSize: 13 }}>✏️ Modifier</button>
+              <button onClick={() => setConfirmDelete(p)} style={{ padding: "6px 14px", borderRadius: 8, border: "1.5px solid #e55", background: "#fde0e0", color: "#c00", fontWeight: 700, cursor: "pointer", fontSize: 13 }}>🗑️ Supprimer</button>
             </div>
           </div>
         ))}
       </div>
-
       <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, marginBottom: 14 }}>📋 Commandes reçues</h3>
       {orders.length === 0 ? (
         <p style={{ color: "#aaa", textAlign: "center", padding: 20 }}>Aucune commande pour le moment.</p>
@@ -235,12 +202,8 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
               <strong>{o.name}</strong>
               <span style={{ fontWeight: 700, color: "#3a6e3a" }}>{fmt(o.total)}</span>
             </div>
-            <div style={{ fontSize: 13, color: "#777" }}>
-              📅 {SLOTS.find(s => s.id === o.slot)?.label}
-            </div>
-            <div style={{ fontSize: 13, color: "#555", marginTop: 4 }}>
-              {o.items.map(i => `${i.emoji} ${i.name} ×${i.qty}`).join("  ·  ")}
-            </div>
+            <div style={{ fontSize: 13, color: "#777" }}>📅 {SLOTS.find(s => s.id === o.slot)?.label}</div>
+            <div style={{ fontSize: 13, color: "#555", marginTop: 4 }}>{o.items.map(i => `${i.emoji} ${i.name} ×${i.qty}`).join("  ·  ")}</div>
           </div>
         ))
       )}
@@ -248,11 +211,9 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
   );
 }
 
-// ─── Checkout ─────────────────────────────────────────────────────────────────
 function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", slot: "", card: "", expiry: "", cvc: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", slot: "" });
   const [errors, setErrors] = useState({});
-  const [paying, setPaying] = useState(false);
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const validate = () => {
@@ -260,19 +221,18 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
     if (!form.name.trim()) e.name = "Requis";
     if (!form.email.includes("@")) e.email = "Email invalide";
     if (!form.slot) e.slot = "Choisissez un créneau";
-    if (form.card.replace(/\s/g, "").length < 16) e.card = "Numéro invalide";
-    if (!form.expiry.match(/^\d{2}\/\d{2}$/)) e.expiry = "MM/AA";
-    if (form.cvc.length < 3) e.cvc = "CVC invalide";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const pay = async () => {
+  const pay = () => {
     if (!validate()) return;
-    setPaying(true);
-    const result = await fakeCharge();
-    setPaying(false);
-    if (result.success) onSuccess({ ...form, transactionId: result.id });
+    const cartItems = Object.entries(cart).filter(([, q]) => q > 0).map(([id, qty]) => ({ ...products.find(p => p.id === +id), qty }));
+    onSuccess({ ...form, transactionId: "stripe_pending", items: cartItems, total });
+    // Chaque unité = 0,50€ donc on multiplie le total par 2 pour obtenir la quantité
+    const quantity = Math.round(total * 2);
+    const stripeUrl = STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(form.email) + "&quantity=" + quantity;
+    window.open(stripeUrl, "_blank");
   };
 
   const cartItems = Object.entries(cart).filter(([, q]) => q > 0).map(([id, qty]) => ({ ...products.find(p => p.id === +id), qty }));
@@ -280,7 +240,6 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
   return (
     <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 4px" }}>
       <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a6e3a", cursor: "pointer", fontWeight: 700, fontSize: 15, marginBottom: 20 }}>← Retour</button>
-
       <div style={card}>
         <h3 style={sectionTitle}>Récapitulatif</h3>
         {cartItems.map(item => (
@@ -316,63 +275,46 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
           ))}
         </div>
         {errors.slot && <span style={{ color: "#e55", fontSize: 12, marginTop: 4, display: "block" }}>{errors.slot}</span>}
-        <p style={{ fontSize: 12, color: "#888", marginTop: 10 }}>📍 Retrait à la ferme — 42 chemin des Oliviers</p>
+        <p style={{ fontSize: 12, color: "#888", marginTop: 10 }}>📍 Retrait à la ferme — Colline de Sion</p>
       </div>
 
-      <div style={{ ...card, marginTop: 16 }}>
-        <h3 style={sectionTitle}>💳 Paiement sécurisé</h3>
-        <div style={{ background: "#f5f9f5", border: "1px solid #c8e0c8", borderRadius: 8, padding: "8px 12px", marginBottom: 14, fontSize: 12, color: "#3a6e3a" }}>
-          🔒 Paiement chiffré — commande confirmée instantanément
-        </div>
-        <label style={labelStyle}>Numéro de carte</label>
-        <input value={form.card} onChange={e => { let v = e.target.value.replace(/\D/g,"").slice(0,16); v = v.replace(/(.{4})/g,"$1 ").trim(); set("card",v); }}
-          placeholder="1234 5678 9012 3456" style={{ ...inputStyle, borderColor: errors.card ? "#e55" : "#d5cfc0", marginBottom: 8, letterSpacing: 2 }} />
-        {errors.card && <span style={{ color: "#e55", fontSize: 12 }}>{errors.card}</span>}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div style={{ ...card, marginTop: 16, background: "#f5f9f5", border: "1.5px solid #c8e0c8" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontSize: 28 }}>🔒</span>
           <div>
-            <label style={labelStyle}>Expiration</label>
-            <input value={form.expiry} onChange={e => { let v = e.target.value.replace(/\D/g,"").slice(0,4); if(v.length>=3) v=v.slice(0,2)+"/"+v.slice(2); set("expiry",v); }}
-              placeholder="MM/AA" style={{ ...inputStyle, borderColor: errors.expiry ? "#e55" : "#d5cfc0" }} />
-            {errors.expiry && <span style={{ color: "#e55", fontSize: 12 }}>{errors.expiry}</span>}
-          </div>
-          <div>
-            <label style={labelStyle}>CVC</label>
-            <input value={form.cvc} onChange={e => set("cvc", e.target.value.replace(/\D/g,"").slice(0,4))}
-              placeholder="123" style={{ ...inputStyle, borderColor: errors.cvc ? "#e55" : "#d5cfc0" }} />
-            {errors.cvc && <span style={{ color: "#e55", fontSize: 12 }}>{errors.cvc}</span>}
+            <div style={{ fontWeight: 700, fontSize: 14, color: "#2d6a2d" }}>Paiement sécurisé par Stripe</div>
+            <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>Vous serez redirigé vers la page de paiement Stripe pour régler par carte bancaire.</div>
           </div>
         </div>
       </div>
 
-      <button onClick={pay} disabled={paying} style={{ marginTop: 20, width: "100%", padding: 16, background: paying ? "#aaa" : "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff", border: "none", borderRadius: 14, fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, cursor: paying ? "not-allowed" : "pointer" }}>
-        {paying ? "⏳ Traitement en cours…" : `✅ Payer ${fmt(total)}`}
+      <button onClick={pay} style={{ marginTop: 20, width: "100%", padding: 16, background: "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff", border: "none", borderRadius: 14, fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 20px rgba(60,110,60,0.3)" }}>
+        💳 Payer {fmt(total)} par carte
       </button>
       <p style={{ textAlign: "center", fontSize: 11, color: "#aaa", marginTop: 10 }}>Annulation gratuite 24h avant le retrait.</p>
     </div>
   );
 }
 
-// ─── Success ──────────────────────────────────────────────────────────────────
 function SuccessScreen({ info, onReset }) {
   const slot = SLOTS.find(s => s.id === info.slot);
   return (
     <div style={{ maxWidth: 480, margin: "40px auto", textAlign: "center", padding: "0 16px" }}>
       <div style={{ fontSize: 80, marginBottom: 16 }}>🌿</div>
-      <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#2d6a2d", marginBottom: 8 }}>Commande confirmée !</h2>
-      <p style={{ color: "#555", marginBottom: 24 }}>Merci <strong>{info.name}</strong> ! Un email de confirmation a été envoyé à <strong>{info.email}</strong>.</p>
+      <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#2d6a2d", marginBottom: 8 }}>Commande enregistrée !</h2>
+      <p style={{ color: "#555", marginBottom: 24 }}>Merci <strong>{info.name}</strong> ! Complétez votre paiement sur la page Stripe qui vient de s'ouvrir.</p>
       <div style={{ ...card, textAlign: "left", marginBottom: 24 }}>
         <p style={{ margin: 0 }}>📅 <strong>Créneau :</strong> {slot?.label}</p>
-        <p style={{ margin: "8px 0 0" }}>📍 <strong>Adresse :</strong> 42 chemin des Oliviers</p>
-        <p style={{ margin: "8px 0 0" }}>🔖 <strong>Référence :</strong> <code style={{ background: "#f0ebe0", padding: "2px 6px", borderRadius: 4 }}>{info.transactionId}</code></p>
+        <p style={{ margin: "8px 0 0" }}>📍 <strong>Adresse :</strong> Colline de Sion</p>
+        <p style={{ margin: "8px 0 0" }}>📧 <strong>Email :</strong> {info.email}</p>
       </div>
       <button onClick={onReset} style={{ padding: "12px 32px", background: "#3a6e3a", color: "#fff", border: "none", borderRadius: 99, fontWeight: 700, fontSize: 15, cursor: "pointer" }}>
-        Passer une nouvelle commande
+        Retour à la boutique
       </button>
     </div>
   );
 }
 
-// ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
   const [products, setProducts] = useState(INITIAL_PRODUCTS);
   const [cart, setCart] = useState({});
@@ -392,9 +334,8 @@ export default function App() {
   const filtered = filter === "Tous" ? products : products.filter(p => p.category === filter);
 
   const handleSuccess = (info) => {
-    const cartItems = Object.entries(cart).filter(([, q]) => q > 0).map(([id, qty]) => ({ ...products.find(p => p.id === +id), qty }));
     setProducts(ps => ps.map(p => ({ ...p, stock: p.stock - (cart[p.id] || 0) })));
-    setOrders(o => [{ ...info, id: Date.now(), items: cartItems, total }, ...o]);
+    setOrders(o => [{ ...info, id: Date.now() }, ...o]);
     setOrderInfo(info);
     setCart({});
     setView("success");
@@ -420,7 +361,7 @@ export default function App() {
       <header style={{ background: "linear-gradient(135deg, #2d5a1b 0%, #4a8a2a 100%)", padding: "0 20px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.2)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0" }}>
           <div onClick={() => setView("shop")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
-            <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo Le Potager de la Colline de Sion" style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
+            <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
             <div>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Le Potager de la</div>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Colline de Sion</div>
