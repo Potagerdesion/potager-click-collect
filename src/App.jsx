@@ -419,9 +419,13 @@ export default function App() {
 
       <header style={{ background: "linear-gradient(135deg, #2d5a1b 0%, #4a8a2a 100%)", padding: "0 20px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.2)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0" }}>
-          <div onClick={() => setView("shop")} style={{ cursor: "pointer" }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#fff", fontWeight: 700, lineHeight: 1.1 }}>🌿 Le Potager</div>
-            <div style={{ fontSize: 11, color: "#b8dda0", letterSpacing: 1.5, textTransform: "uppercase" }}>Circuit court · Permaculture</div>
+          <div onClick={() => setView("shop")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
+            <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo Le Potager de la Colline de Sion" style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
+            <div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Le Potager de la</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Colline de Sion</div>
+              <div style={{ fontSize: 10, color: "#b8dda0", letterSpacing: 1.2, textTransform: "uppercase", marginTop: 2 }}>Fruits & Légumes · Permaculture</div>
+            </div>
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "6px 12px", color: "#fff", cursor: "pointer", fontSize: 13 }}>⚙️ Admin</button>
