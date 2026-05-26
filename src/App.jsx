@@ -213,6 +213,7 @@ function AdminPanel({ products, onSave, onDelete, onStockChange, orders, onClose
 
 function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", slot: "" });
+  const [paying, setPaying] = useState(false);
   const [errors, setErrors] = useState({});
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -225,14 +226,35 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
     return Object.keys(e).length === 0;
   };
 
-  const pay = () => {
+  const pay = async () => {
     if (!validate()) return;
+    setPaying(true);
     const cartItems = Object.entries(cart).filter(([, q]) => q > 0).map(([id, qty]) => ({ ...products.find(p => p.id === +id), qty }));
-    onSuccess({ ...form, transactionId: "stripe_pending", items: cartItems, total });
-    // Chaque unité = 0,50€ donc on multiplie le total par 2 pour obtenir la quantité
-    const quantity = Math.round(total * 2);
-    const stripeUrl = STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(form.email) + "&quantity=" + quantity;
-    window.open(stripeUrl, "_blank");
+    const itemsSummary = cartItems.map(i => `${i.name} x${i.qty}`).join(", ");
+    const slot = SLOTS.find(s => s.id === form.slot)?.label || "";
+    try {
+      const response = await fetch("/api/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: total,
+          customerEmail: form.email,
+          customerName: form.name,
+          slot: slot,
+          items: itemsSummary,
+        }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        onSuccess({ ...form, transactionId: "stripe_pending", items: cartItems, total });
+        window.location.href = data.url;
+      } else {
+        alert("Erreur lors de la création du paiement. Veuillez réessayer.");
+      }
+    } catch (error) {
+      alert("Erreur de connexion. Veuillez réessayer.");
+    }
+    setPaying(false);
   };
 
   const cartItems = Object.entries(cart).filter(([, q]) => q > 0).map(([id, qty]) => ({ ...products.find(p => p.id === +id), qty }));
@@ -288,8 +310,8 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
         </div>
       </div>
 
-      <button onClick={pay} style={{ marginTop: 20, width: "100%", padding: 16, background: "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff", border: "none", borderRadius: 14, fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 20px rgba(60,110,60,0.3)" }}>
-        💳 Payer {fmt(total)} par carte
+      <button onClick={pay} disabled={paying} style={{ marginTop: 20, width: "100%", padding: 16, background: paying ? "#aaa" : "linear-gradient(135deg, #3a6e3a, #5a9e3a)", color: "#fff", border: "none", borderRadius: 14, fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, cursor: paying ? "not-allowed" : "pointer", boxShadow: "0 4px 20px rgba(60,110,60,0.3)" }}>
+        {paying ? "⏳ Préparation du paiement…" : `💳 Payer ${fmt(total)} par carte`}
       </button>
       <p style={{ textAlign: "center", fontSize: 11, color: "#aaa", marginTop: 10 }}>Annulation gratuite 24h avant le retrait.</p>
     </div>
