@@ -453,28 +453,29 @@ export default function App() {
     <div style={{ minHeight: "100vh", background: "#f8f4ec", fontFamily: "'Lato', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;600;700&display=swap'); * { box-sizing: border-box; } input:focus,select:focus { border-color: #3a6e3a !important; outline: none; }`}</style>
 
-      <header style={{ background: "linear-gradient(135deg, #2d5a1b 0%, #4a8a2a 100%)", padding: "0 20px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.2)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0" }}>
-          <div onClick={() => setView("about")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
-            <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Le Potager de la</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Colline de Sion</div>
-              <div style={{ fontSize: 10, color: "#b8dda0", letterSpacing: 1.2, textTransform: "uppercase", marginTop: 2 }}>Fruits & Légumes · Permaculture</div>
+      <header style={{ background: "linear-gradient(135deg, #2d5a1b 0%, #4a8a2a 100%)", padding: "0 12px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.2)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
+          {/* Logo + nom */}
+          <div onClick={() => setView("about")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, flexShrink: 1, minWidth: 0 }}>
+            <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 42, height: 42, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager de la Colline de Sion</div>
+              <div style={{ fontSize: 9, color: "#b8dda0", letterSpacing: 1, textTransform: "uppercase", marginTop: 1 }}>Fruits & Légumes · Permaculture</div>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <button onClick={() => setView("about")} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 8px", color: "#fff", cursor: "pointer", fontSize: 11, lineHeight: 1.3, textAlign: "center", height: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <div>🌿</div>
+          {/* Boutons */}
+          <div style={{ display: "flex", gap: 6, alignItems: "center", flexShrink: 0, marginLeft: 8 }}>
+            <button onClick={() => setView("about")} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ fontSize: 14 }}>🌿</div>
               <div style={{ whiteSpace: "nowrap" }}>Notre histoire</div>
             </button>
-            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 8px", color: "#fff", cursor: "pointer", fontSize: 11, lineHeight: 1.3, textAlign: "center", height: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <div>⚙️</div>
+            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ fontSize: 14 }}>⚙️</div>
               <div style={{ whiteSpace: "nowrap" }}>Admin</div>
             </button>
             {view === "shop" && (
-              <button onClick={() => cartCount > 0 && setView("checkout")} style={{ background: cartCount > 0 ? "#fff" : "rgba(255,255,255,0.2)", color: cartCount > 0 ? "#3a6e3a" : "#bbb", border: "none", borderRadius: 99, padding: "8px 18px", fontWeight: 700, fontSize: 14, cursor: cartCount > 0 ? "pointer" : "default" }}>
-                🛒 {cartCount > 0 ? `${cartCount} article${cartCount > 1 ? "s" : ""} · ${fmt(total)}` : "Panier vide"}
+              <button onClick={() => cartCount > 0 && setView("checkout")} style={{ background: cartCount > 0 ? "#fff" : "rgba(255,255,255,0.2)", color: cartCount > 0 ? "#3a6e3a" : "#bbb", border: "none", borderRadius: 99, padding: "6px 12px", fontWeight: 700, fontSize: 12, cursor: cartCount > 0 ? "pointer" : "default", whiteSpace: "nowrap" }}>
+                🛒 {cartCount > 0 ? `${cartCount} · ${fmt(total)}` : "Panier"}
               </button>
             )}
           </div>
