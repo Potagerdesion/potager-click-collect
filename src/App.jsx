@@ -337,6 +337,79 @@ function SuccessScreen({ info, onReset }) {
   );
 }
 
+
+function AboutPage({ onBack }) {
+  return (
+    <div style={{ maxWidth: 680, margin: "0 auto", padding: "0 16px 60px" }}>
+      <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a6e3a", cursor: "pointer", fontWeight: 700, fontSize: 15, marginBottom: 24 }}>
+        ← Retour à la boutique
+      </button>
+
+      {/* Hero */}
+      <div style={{ textAlign: "center", marginBottom: 40 }}>
+        <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg"
+          alt="Le Potager de la Colline de Sion"
+          style={{ width: 120, height: 120, borderRadius: "50%", objectFit: "cover", border: "4px solid #3a6e3a", marginBottom: 16 }} />
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 30, color: "#2d5a1b", margin: "0 0 8px" }}>
+          Le Potager de la Colline de Sion
+        </h1>
+        <p style={{ color: "#778", fontSize: 15, margin: 0 }}>Saxon-Sion · Colline de Sion-Vaudémont · 54330</p>
+      </div>
+
+      {/* Notre histoire */}
+      <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🌱 Notre histoire</h2>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+          Tout a commencé par un rêve ancré dans la terre lorraine : faire pousser sur la Colline de Sion-Vaudémont des fruits et légumes de saison, dans le respect de la nature et du patrimoine qui nous entoure.
+        </p>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+          C'est au cours de l'hiver dernier que nous avons posé les premières pierres de notre potager en permaculture — une aventure humaine, sensible et profondément enracinée dans notre histoire familiale et dans celle de cette colline emblématique de Lorraine.
+        </p>
+      </div>
+
+      {/* Notre philosophie */}
+      <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🍃 Notre philosophie</h2>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+          Nous avons choisi la permaculture parce qu'elle nous invite à cultiver autrement — en observant, en imitant et en travaillant <em>avec</em> les écosystèmes naturels plutôt que contre eux. Prendre soin de la terre, c'est prendre soin de l'avenir.
+        </p>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+          Notre potager n'est pas certifié Bio, mais nous ne recourons à <strong>aucun produit chimique</strong>. Nous traitons naturellement nos cultures — avec des huiles essentielles notamment — car nous croyons que la nature offre déjà tout ce dont elle a besoin pour se soigner.
+        </p>
+      </div>
+
+      {/* Ce qu'on produit */}
+      <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🍯 Ce que nous produisons</h2>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+          Fruits et légumes de saison, cueillis à maturité sur notre Colline… et bientôt du miel de nos abeilles ! Tout est produit ici, sur ces terres qui nous sont chères, avec passion et sincérité.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginTop: 16 }}>
+          {["🍅 Légumes de saison", "🍓 Fruits frais", "🍯 Miel (bientôt)"].map(item => (
+            <div key={item} style={{ background: "#f0f7f0", borderRadius: 12, padding: "12px 8px", textAlign: "center", fontSize: 13, fontWeight: 600, color: "#2d6a2d" }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Citation */}
+      <div style={{ background: "linear-gradient(135deg, #2d5a1b, #4a8a2a)", borderRadius: 20, padding: "28px 28px", textAlign: "center", marginBottom: 20 }}>
+        <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: "#fff", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
+          "La nature, notre Colline, votre assiette."
+        </p>
+        <p style={{ color: "#b8dda0", fontSize: 13, marginTop: 12 }}>— Cultivés en permaculture avec passion, Saxon-Sion</p>
+      </div>
+
+      <div style={{ textAlign: "center" }}>
+        <button onClick={onBack} style={{ padding: "14px 36px", background: "#3a6e3a", color: "#fff", border: "none", borderRadius: 99, fontWeight: 700, fontSize: 16, cursor: "pointer", boxShadow: "0 4px 20px rgba(60,110,60,0.3)" }}>
+          🛒 Voir nos produits
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [products, setProducts] = useState(INITIAL_PRODUCTS);
   const [cart, setCart] = useState({});
@@ -382,7 +455,7 @@ export default function App() {
 
       <header style={{ background: "linear-gradient(135deg, #2d5a1b 0%, #4a8a2a 100%)", padding: "0 20px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.2)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0" }}>
-          <div onClick={() => setView("shop")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
+          <div onClick={() => setView("about")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
             <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
             <div>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>Le Potager de la</div>
@@ -391,7 +464,14 @@ export default function App() {
             </div>
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "6px 12px", color: "#fff", cursor: "pointer", fontSize: 13 }}>⚙️ Admin</button>
+            <button onClick={() => setView("about")} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 8px", color: "#fff", cursor: "pointer", fontSize: 11, lineHeight: 1.3, textAlign: "center", height: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <div>🌿</div>
+              <div style={{ whiteSpace: "nowrap" }}>Notre histoire</div>
+            </button>
+            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 8px", color: "#fff", cursor: "pointer", fontSize: 11, lineHeight: 1.3, textAlign: "center", height: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <div>⚙️</div>
+              <div style={{ whiteSpace: "nowrap" }}>Admin</div>
+            </button>
             {view === "shop" && (
               <button onClick={() => cartCount > 0 && setView("checkout")} style={{ background: cartCount > 0 ? "#fff" : "rgba(255,255,255,0.2)", color: cartCount > 0 ? "#3a6e3a" : "#bbb", border: "none", borderRadius: 99, padding: "8px 18px", fontWeight: 700, fontSize: 14, cursor: cartCount > 0 ? "pointer" : "default" }}>
                 🛒 {cartCount > 0 ? `${cartCount} article${cartCount > 1 ? "s" : ""} · ${fmt(total)}` : "Panier vide"}
@@ -446,6 +526,7 @@ export default function App() {
         {view === "checkout" && <CheckoutForm cart={cart} products={products} total={total} onSuccess={handleSuccess} onBack={() => setView("shop")} />}
         {view === "success" && orderInfo && <SuccessScreen info={orderInfo} onReset={() => setView("shop")} />}
         {view === "admin" && <AdminPanel products={products} onSave={handleSaveProduct} onDelete={handleDeleteProduct} onStockChange={handleStockChange} orders={orders} onClose={() => setView("shop")} />}
+        {view === "about" && <AboutPage onBack={() => setView("shop")} />}
       </main>
     </div>
   );
