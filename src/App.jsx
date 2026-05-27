@@ -350,8 +350,9 @@ function AboutPage({ onBack }) {
         <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg"
           alt="Le Potager de la Colline de Sion"
           style={{ width: 120, height: 120, borderRadius: "50%", objectFit: "cover", border: "4px solid #3a6e3a", marginBottom: 16 }} />
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 30, color: "#2d5a1b", margin: "0 0 8px" }}>
-          Le Potager de la Colline de Sion
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 40, color: "#2d5a1b", margin: "0 0 8px" }}>
+          Le Potager de
+          la Colline de Sion
         </h1>
         <p style={{ color: "#778", fontSize: 15, margin: 0 }}>Saxon-Sion · Colline de Sion-Vaudémont · 54330</p>
       </div>
