@@ -359,10 +359,10 @@ function AboutPage({ onBack }) {
       {/* Notre histoire */}
       <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🌱 Notre histoire</h2>
-        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15, textAlign: "justify" }}>
           Tout a commencé par un rêve ancré dans la terre lorraine : faire pousser sur la Colline de Sion-Vaudémont des fruits et légumes de saison, dans le respect de la nature et du patrimoine qui nous entoure.
         </p>
-        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15, textAlign: "justify" }}>
           C'est au cours de l'hiver dernier que nous avons posé les premières pierres de notre potager en permaculture — une aventure humaine, sensible et profondément enracinée dans notre histoire familiale et dans celle de cette colline emblématique de Lorraine.
         </p>
       </div>
@@ -370,10 +370,10 @@ function AboutPage({ onBack }) {
       {/* Notre philosophie */}
       <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🍃 Notre philosophie</h2>
-        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15, textAlign: "justify" }}>
           Nous avons choisi la permaculture parce qu'elle nous invite à cultiver autrement — en observant, en imitant et en travaillant <em>avec</em> les écosystèmes naturels plutôt que contre eux. Prendre soin de la terre, c'est prendre soin de l'avenir.
         </p>
-        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15, textAlign: "justify" }}>
           Notre potager n'est pas certifié Bio, mais nous ne recourons à <strong>aucun produit chimique</strong>. Nous traitons naturellement nos cultures — avec des huiles essentielles notamment — car nous croyons que la nature offre déjà tout ce dont elle a besoin pour se soigner.
         </p>
       </div>
@@ -381,11 +381,11 @@ function AboutPage({ onBack }) {
       {/* Ce qu'on produit */}
       <div style={{ background: "#fffdf8", border: "1.5px solid #e8e0d0", borderRadius: 20, padding: "28px 28px", marginBottom: 20 }}>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#2d5a1b", marginTop: 0 }}>🍯 Ce que nous produisons</h2>
-        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15 }}>
-          Fruits et légumes de saison, cueillis à maturité sur notre Colline… et bientôt du miel de nos abeilles ! Tout est produit ici, sur ces terres qui nous sont chères, avec passion et sincérité.
+        <p style={{ color: "#444", lineHeight: 1.8, fontSize: 15, textAlign: "justify" }}>
+          Fruits et légumes de saison, cueillis à maturité sur notre Colline, et le miel de nos abeilles ! Tout est produit ici, sur ces terres qui nous sont chères, avec passion et sincérité.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginTop: 16 }}>
-          {["🍅 Légumes de saison", "🍓 Fruits frais", "🍯 Miel (bientôt)"].map(item => (
+          {["🍅 Légumes de saison", "🍓 Fruits frais", "🍯 Miel"].map(item => (
             <div key={item} style={{ background: "#f0f7f0", borderRadius: 12, padding: "12px 8px", textAlign: "center", fontSize: 13, fontWeight: 600, color: "#2d6a2d" }}>
               {item}
             </div>
