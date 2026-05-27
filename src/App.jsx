@@ -460,7 +460,7 @@ export default function App() {
             <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 42, height: 42, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
             <div style={{ minWidth: 0 }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>de la Colline de Sion</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 10, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>de la Colline de Sion</div>
               <div style={{ fontSize: 9, color: "#b8dda0", letterSpacing: 1, textTransform: "uppercase", marginTop: 1 }}>Fruits & Légumes · Permaculture</div>
             </div>
           </div>
