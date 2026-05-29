@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
 
@@ -420,7 +420,14 @@ export default function App() {
   const [filter, setFilter] = useState("Tous");
   const [adminPin, setAdminPin] = useState("");
   const [showPinModal, setShowPinModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const PIN = "1234";
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const categories = ["Tous", ...Array.from(new Set(products.map(p => p.category)))];
   const addToCart = (id) => setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 }));
