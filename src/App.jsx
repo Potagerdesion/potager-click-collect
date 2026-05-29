@@ -21,7 +21,7 @@ const SLOTS = [
   { id: "sam-9", label: "Samedi 9h–13h" },
 ];
 
-const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🫜"];
+const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚"];
 
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
@@ -385,9 +385,10 @@ function AboutPage({ onBack }) {
           Fruits et légumes de saison, cueillis à maturité sur notre Colline, et le miel de nos abeilles ! Tout est produit ici, sur ces terres qui nous sont chères, avec passion et sincérité.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginTop: 16 }}>
-          {["🍅 Légumes de saison", "🍓 Fruits frais", "🍯 Miel"].map(item => (
-            <div key={item} style={{ background: "#f0f7f0", borderRadius: 12, padding: "12px 8px", textAlign: "center", fontSize: 13, fontWeight: 600, color: "#2d6a2d" }}>
-              {item}
+          {[["🍅", "Légumes de saison"], ["🍓", "Fruits frais"], ["🍯", "Miel"]].map(([emoji, label]) => (
+            <div key={label} style={{ background: "#f0f7f0", borderRadius: 12, padding: "12px 8px", textAlign: "center", color: "#2d6a2d" }}>
+              <div style={{ fontSize: 22 }}>{emoji}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, marginTop: 4, lineHeight: 1.3 }}>{label}</div>
             </div>
           ))}
         </div>
@@ -459,8 +460,7 @@ export default function App() {
           <div onClick={() => setView("about")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, flexShrink: 1, minWidth: 0 }}>
             <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 42, height: 42, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 11, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>de la Colline de Sion</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager de la Colline de Sion</div>
               <div style={{ fontSize: 9, color: "#b8dda0", letterSpacing: 1, textTransform: "uppercase", marginTop: 1 }}>Fruits & Légumes · Permaculture</div>
             </div>
           </div>
@@ -487,6 +487,7 @@ export default function App() {
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ background: "#fff", borderRadius: 16, padding: 28, width: 300, textAlign: "center" }}>
             <h3 style={{ marginTop: 0, fontFamily: "'Playfair Display', serif" }}>Accès producteur</h3>
+            <p style={{ fontSize: 13, color: "#888" }}>Code PIN : <strong>1234</strong></p>
             <input type="password" value={adminPin} onChange={e => setAdminPin(e.target.value)} placeholder="Code PIN"
               style={{ ...inputStyle, textAlign: "center", letterSpacing: 6, fontSize: 22, marginBottom: 12 }} />
             <div style={{ display: "flex", gap: 8 }}>
