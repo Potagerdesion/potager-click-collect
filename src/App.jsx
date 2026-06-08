@@ -467,22 +467,23 @@ export default function App() {
           <div onClick={() => setView("about")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, flexShrink: 1, minWidth: 0 }}>
             <img src="https://raw.githubusercontent.com/Potagerdesion/potager-click-collect/main/IMG_1149.jpeg" alt="Logo" style={{ width: 42, height: 42, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager de la Colline de Sion</div>
-              <div style={{ fontSize: 9, color: "#b8dda0", letterSpacing: 1, textTransform: "uppercase", marginTop: 1 }}>Fruits & Légumes · Permaculture</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#fff", fontWeight: 700, lineHeight: 1.2, whiteSpace: "nowrap" }}>Le Potager</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 10, color: "#fff", fontWeight: 700, lineHeight: 1.3, whiteSpace: "nowrap" }}>de la Colline de Sion</div>
+              <div style={{ fontSize: 9, color: "#b8dda0", letterSpacing: 1, textTransform: "uppercase", marginTop: 1, whiteSpace: "nowrap" }}>Fruits & Légumes · Permaculture</div>
             </div>
           </div>
           {/* Boutons */}
-          <div style={{ display: "flex", gap: 6, alignItems: "center", flexShrink: 0, marginLeft: 8 }}>
-            <button onClick={() => setView("about")} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 4 : 6, alignItems: "center", flexShrink: 0, marginLeft: 8 }}>
+            <button onClick={() => setView("about")} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: 72 }}>
               <div style={{ fontSize: 14 }}>🌿</div>
               <div style={{ whiteSpace: "nowrap" }}>Notre histoire</div>
             </button>
-            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            <button onClick={() => setShowPinModal(true)} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 8, padding: "4px 7px", color: "#fff", cursor: "pointer", fontSize: 10, lineHeight: 1.3, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: 72 }}>
               <div style={{ fontSize: 14 }}>⚙️</div>
               <div style={{ whiteSpace: "nowrap" }}>Admin</div>
             </button>
             {view === "shop" && (
-              <button onClick={() => cartCount > 0 && setView("checkout")} style={{ background: cartCount > 0 ? "#fff" : "rgba(255,255,255,0.2)", color: cartCount > 0 ? "#3a6e3a" : "#bbb", border: "none", borderRadius: 99, padding: "6px 12px", fontWeight: 700, fontSize: 12, cursor: cartCount > 0 ? "pointer" : "default", whiteSpace: "nowrap" }}>
+              <button onClick={() => cartCount > 0 && setView("checkout")} style={{ background: cartCount > 0 ? "#fff" : "rgba(255,255,255,0.2)", color: cartCount > 0 ? "#3a6e3a" : "#bbb", border: "none", borderRadius: 99, padding: isMobile ? "5px 8px" : "6px 12px", fontWeight: 700, fontSize: isMobile ? 11 : 12, cursor: cartCount > 0 ? "pointer" : "default", whiteSpace: "nowrap" }}>
                 🛒 {cartCount > 0 ? `${cartCount} · ${fmt(total)}` : "Panier"}
               </button>
             )}
