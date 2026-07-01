@@ -498,7 +498,6 @@ export default function App() {
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ background: "#fff", borderRadius: 16, padding: 28, width: 300, textAlign: "center" }}>
             <h3 style={{ marginTop: 0, fontFamily: "'Playfair Display', serif" }}>Accès producteur</h3>
-            <p style={{ fontSize: 13, color: "#888" }}>Code PIN : <strong>1234</strong></p>
             <input type="password" value={adminPin} onChange={e => setAdminPin(e.target.value)} placeholder="Code PIN"
               style={{ ...inputStyle, textAlign: "center", letterSpacing: 6, fontSize: 22, marginBottom: 12 }} />
             <div style={{ display: "flex", gap: 8 }}>
