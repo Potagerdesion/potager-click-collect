@@ -5,7 +5,7 @@ const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
 const INITIAL_PRODUCTS = [
   { id: 1, name: "Courgettes", category: "Légumes", price: 1.8, stock: 8, unit: "kg", emoji: "🥒"},
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 1.8, stock: 6.22, unit: "kg", emoji: "🥒"},
-  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 1.8, stock: 2,25, unit: "kg", emoji: "🥒"},
+  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 1.8, stock: 2.25, unit: "kg", emoji: "🥒"},
   { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 15, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
   { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
