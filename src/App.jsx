@@ -3,25 +3,28 @@ import { useState, useEffect } from "react";
 const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
 
 const INITIAL_PRODUCTS = [
-  { id: 1, name: "Tomates cerises", category: "Légumes", price: 3.5, stock: 20, unit: "barquette 250g", emoji: "🍅", desc: "Variétés anciennes, récoltées à maturité" },
-  { id: 2, name: "Courgettes", category: "Légumes", price: 1.2, stock: 15, unit: "pièce", emoji: "🥒", desc: "Vertes et jaunes, fraîchement cueillies" },
-  { id: 3, name: "Fraises Gariguette", category: "Fruits", price: 4.5, stock: 10, unit: "barquette 500g", emoji: "🍓", desc: "Sucrées et parfumées, ramassées le matin" },
-  { id: 4, name: "Salade verte", category: "Légumes", price: 1.0, stock: 25, unit: "pièce", emoji: "🥬", desc: "Batavia, laitue, mesclun selon saison" },
-  { id: 5, name: "Pommes de terre", category: "Légumes", price: 2.0, stock: 30, unit: "kg", emoji: "🥔", desc: "Variétés Charlotte et Ratte" },
-  { id: 6, name: "Framboises", category: "Fruits", price: 5.0, stock: 8, unit: "barquette 250g", emoji: "🫐", desc: "Cueillette du jour, très fragiles" },
-  { id: 7, name: "Haricots verts", category: "Légumes", price: 2.5, stock: 18, unit: "500g", emoji: "🫘", desc: "Fins et croquants, récoltés à la main" },
-  { id: 8, name: "Abricots", category: "Fruits", price: 3.8, stock: 12, unit: "kg", emoji: "🍑", desc: "Variété Bergeron, très sucrés" },
+  { id: 1, name: "Courgettes", category: "Légumes", price: 1.8, stock: 8, unit: "kg", emoji: "🥒"},
+  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 1.8, stock: 6.22, unit: "kg", emoji: "🥒"},
+  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 1.8, stock: 2,25, unit: "kg", emoji: "🥒"},
+  { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 15, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
+  { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
+  { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
+  { id: 7, name: "Radis noirs", category: "Légumes", price: 0.85, stock: 2, unit: "pièce", emoji: "🫜"},
+  { id: 8, name: "Navets", category: "Légumes", price: 0.4, stock: 2, unit: "pièce", emoji: "🫜"},
+  { id: 9, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 4, unit: "pièce", emoji: "🥒"},
+  { id: 10, name: "Concombres ovales", category: "Légumes", price: 0.5, stock: 15, unit: "pièce", emoji: "🥒"},
 ];
 
 const SLOTS = [
-  { id: "mar-9", label: "Mardi 9h–12h" },
-  { id: "mar-16", label: "Mardi 16h–19h" },
-  { id: "ven-9", label: "Vendredi 9h–12h" },
-  { id: "ven-16", label: "Vendredi 16h–19h" },
-  { id: "sam-9", label: "Samedi 9h–13h" },
+  { id: "mar-am", label: "Mardi matin" },
+  { id: "mar-pm", label: "Mardi après-midi" },
+  { id: "sam-am", label: "Samedi matin" },
+  { id: "sam-pm", label: "Samedi après-midi" },
+  { id: "dim-am", label: "Dimanche matin" },
+  { id: "dim-pm", label: "Dimanche après-midi" },
 ];
 
-const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥬","🥒","🫜"];
+const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜"];
 
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
