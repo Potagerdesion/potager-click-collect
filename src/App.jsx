@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
 
 const INITIAL_PRODUCTS = [
-  { id: 1, name: "Courgettes", category: "Légumes", price: 0.9, stock: 17, unit: "pièce", emoji: "🥒"},
-  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 13, unit: "pièce", emoji: "🥒"},
-  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 6, unit: "pièceg", emoji: "🥒"},
-  { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 15, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
+  { id: 1, name: "Courgettes", category: "Légumes", price: 0.9, stock: 15, unit: "pièce", emoji: "🥒"},
+  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 9, unit: "pièce", emoji: "🥒"},
+  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 4, unit: "pièceg", emoji: "🥒"},
+  { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 14, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
   { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 7, name: "Radis noirs", category: "Légumes", price: 0.85, stock: 2, unit: "pièce", emoji: "🫜"},
