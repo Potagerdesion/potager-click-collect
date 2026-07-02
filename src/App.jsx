@@ -246,6 +246,7 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
           customerName: form.name,
           slot: slot,
           items: itemsSummary,
+          cartItems: cartItems.map(i => ({ id: i.id, qty: i.qty })),
         }),
       });
       const data = await response.json();
@@ -417,6 +418,13 @@ function AboutPage({ onBack }) {
 
 export default function App() {
   const [products, setProducts] = useState(INITIAL_PRODUCTS);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then((data) => { if (Array.isArray(data)) setProducts(data); })
+      .catch(() => {});
+  }, []);
   const [cart, setCart] = useState({});
   const [view, setView] = useState("shop");
   const [orderInfo, setOrderInfo] = useState(null);
@@ -440,25 +448,54 @@ export default function App() {
   const total = Object.entries(cart).reduce((sum, [id, qty]) => { const p = products.find(x => x.id === +id); return sum + (p ? p.price * qty : 0); }, 0);
   const filtered = filter === "Tous" ? products : products.filter(p => p.category === filter);
 
+  // Le stock réel est déduit côté serveur (webhook Stripe) une fois le
+  // paiement confirmé, pas ici. On se contente d'enregistrer la commande
+  // et d'ajuster localement l'affichage pour éviter la survente pendant
+  // la session en cours ; la valeur exacte sera rechargée au retour sur le
+  // site (rechargement de page après le paiement Stripe).
   const handleSuccess = (info) => {
-    setProducts(ps => ps.map(p => ({ ...p, stock: p.stock - (cart[p.id] || 0) })));
+    setProducts(ps => ps.map(p => ({ ...p, stock: Math.max(0, p.stock - (cart[p.id] || 0)) })));
     setOrders(o => [{ ...info, id: Date.now() }, ...o]);
     setOrderInfo(info);
     setCart({});
     setView("success");
   };
 
+  const persistProducts = async (list) => {
+    try {
+      await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-pin": PIN },
+        body: JSON.stringify(list),
+      });
+    } catch (err) {
+      alert("La sauvegarde en ligne a échoué, réessayez.");
+    }
+  };
+
   const handleSaveProduct = (p) => {
-    setProducts(ps => ps.find(x => x.id === p.id) ? ps.map(x => x.id === p.id ? p : x) : [...ps, p]);
+    setProducts(ps => {
+      const next = ps.find(x => x.id === p.id) ? ps.map(x => x.id === p.id ? p : x) : [...ps, p];
+      persistProducts(next);
+      return next;
+    });
   };
 
   const handleDeleteProduct = (id) => {
-    setProducts(ps => ps.filter(p => p.id !== id));
+    setProducts(ps => {
+      const next = ps.filter(p => p.id !== id);
+      persistProducts(next);
+      return next;
+    });
     setCart(c => { const n = { ...c }; delete n[id]; return n; });
   };
 
   const handleStockChange = (id, delta) => {
-    setProducts(ps => ps.map(p => p.id === id ? { ...p, stock: Math.max(0, p.stock + delta) } : p));
+    setProducts(ps => {
+      const next = ps.map(p => p.id === id ? { ...p, stock: Math.max(0, p.stock + delta) } : p);
+      persistProducts(next);
+      return next;
+    });
   };
 
   return (
