@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-const STRIPE_LINK = "https://buy.stripe.com/test_3cI7sK1Cc1IMffH0oQ1sQ00";
-
 const INITIAL_PRODUCTS = [
   { id: 1, name: "Courgettes", category: "Légumes", price: 0.9, stock: 15, unit: "pièce", emoji: "🥒"},
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 9, unit: "pièce", emoji: "🥒"},
