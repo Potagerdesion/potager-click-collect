@@ -10,9 +10,12 @@ const INITIAL_PRODUCTS = [
   { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 7, name: "Radis noirs", category: "Légumes", price: 0.85, stock: 2, unit: "pièce", emoji: "🫜"},
-  { id: 8, name: "Navets", category: "Légumes", price: 0.4, stock: 2, unit: "pièce", emoji: "🫜"},
-  { id: 9, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 4, unit: "pièce", emoji: "🥒"},
+  { id: 8, name: "Navets", category: "Légumes", price: 0.4, stock: 5, unit: "pièce", emoji: "🫜"},
+  { id: 9, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 13, unit: "pièce", emoji: "🥒"},
   { id: 10, name: "Concombres ovales", category: "Légumes", price: 0.5, stock: 15, unit: "pièce", emoji: "🥒"},
+  { id: 11, name: "Céléris branches", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🌿"},
+  { id: 12, name: "Persil plat", category: "Légumes", price: 1.5, stock: 10, unit: "botte", emoji: "🌿"},
+  { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 2, unit: "botte", emoji: "🧅"},
 ];
 
 const SLOTS = [
