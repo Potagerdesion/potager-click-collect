@@ -12,7 +12,11 @@ exports.handler = async (event) => {
   try {
     console.log("Mode Live :", process.env.STRIPE_SECRET_KEY.startsWith("sk_live"));
 
-    const { amount, customerEmail, customerName, slot, items } = JSON.parse(event.body);
+    const { amount, customerEmail, customerName, slot, items, cartItems } = JSON.parse(event.body);
+
+    const cartEncoded = Array.isArray(cartItems)
+      ? cartItems.map((i) => `${i.id}:${i.qty}`).join(",")
+      : "";
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -30,6 +34,11 @@ exports.handler = async (event) => {
           quantity: 1,
         },
       ],
+      metadata: {
+        cart: cartEncoded,
+        customerName: customerName || "",
+        slot: slot || "",
+      },
       success_url: `${event.headers.origin}/success`,
       cancel_url: `${event.headers.origin}`,
     });
