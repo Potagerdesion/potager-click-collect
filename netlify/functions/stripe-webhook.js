@@ -26,7 +26,11 @@ exports.handler = async (event) => {
     const cartEncoded = session.metadata?.cart || "";
 
     if (cartEncoded) {
-      const store = getStore("products");
+      const store = getStore({
+        name: "products",
+        siteID: process.env.NETLIFY_SITE_ID,
+        token: process.env.NETLIFY_API_TOKEN,
+      });
       const products = (await store.get("list", { type: "json" })) || [];
 
       const cartItems = cartEncoded.split(",").filter(Boolean).map((pair) => {
