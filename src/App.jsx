@@ -303,7 +303,7 @@ function CheckoutForm({ cart, products, total, onSuccess, onBack }) {
           ))}
         </div>
         {errors.slot && <span style={{ color: "#e55", fontSize: 12, marginTop: 4, display: "block" }}>{errors.slot}</span>}
-        <p style={{ fontSize: 12, color: "#888", marginTop: 10 }}>📍 Retrait à la ferme — Colline de Sion</p>
+        <p style={{ fontSize: 12, color: "#888", marginTop: 10 }}>📍 Retrait à la ferme - Colline de Sion</p>
       </div>
 
       <div style={{ ...card, marginTop: 16, background: "#f5f9f5", border: "1.5px solid #c8e0c8" }}>
@@ -333,7 +333,7 @@ function SuccessScreen({ info, onReset }) {
       <p style={{ color: "#555", marginBottom: 24 }}>Merci <strong>{info.name}</strong> ! Complétez votre paiement sur la page Stripe qui vient de s'ouvrir.</p>
       <div style={{ ...card, textAlign: "left", marginBottom: 24 }}>
         <p style={{ margin: 0 }}>📅 <strong>Créneau :</strong> {slot?.label}</p>
-        <p style={{ margin: "8px 0 0" }}>📍 <strong>Adresse :</strong> Colline de Sion</p>
+        <p style={{ margin: "8px 0 0" }}>📍 <strong>Adresse :</strong> 2, les Grands Champs - Saxon-Sion</p>
         <p style={{ margin: "8px 0 0" }}>📧 <strong>Email :</strong> {info.email}</p>
       </div>
       <button onClick={onReset} style={{ padding: "12px 32px", background: "#3a6e3a", color: "#fff", border: "none", borderRadius: 99, fontWeight: 700, fontSize: 15, cursor: "pointer" }}>
