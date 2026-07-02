@@ -1,5 +1,7 @@
 const { getStore } = require("@netlify/blobs");
 
+// Liste de produits utilisée uniquement au tout premier lancement,
+// pour initialiser le stockage si celui-ci est encore vide.
 const SEED_PRODUCTS = [
   { id: 1, name: "Courgettes", category: "Légumes", price: 0.9, stock: 15, unit: "pièce", emoji: "🥒" },
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 9, unit: "pièce", emoji: "🥒" },
@@ -16,8 +18,13 @@ const SEED_PRODUCTS = [
   { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 2, unit: "botte", emoji: "🧅" },
 ];
 
+const store = getStore({
+  name: "products",
+  siteID: process.env.NETLIFY_SITE_ID,
+  token: process.env.NETLIFY_API_TOKEN,
+});
+
 exports.handler = async (event) => {
-  const store = getStore("products");
 
   if (event.httpMethod === "GET") {
     let products = await store.get("list", { type: "json" });
