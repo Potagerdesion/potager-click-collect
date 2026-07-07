@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 const INITIAL_PRODUCTS = [
-  { id: 1, name: "Courgettes", category: "Légumes", price: 0.9, stock: 12, unit: "pièce", emoji: "🥒"},
-  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 7, unit: "pièce", emoji: "🥒"},
-  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 1, unit: "pièce", emoji: "🥒"},
+  { id: 1, name: "Courgettes vertes", category: "Légumes", price: 0.9, stock: 20, unit: "pièce", emoji: "🥒"},
+  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 14, unit: "pièce", emoji: "🥒"},
+  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 4, unit: "pièce", emoji: "🥒"},
   { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 10, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
   { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 5, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 5, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
@@ -14,6 +14,7 @@ const INITIAL_PRODUCTS = [
   { id: 11, name: "Céléris branches", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🌿"},
   { id: 12, name: "Persil plat", category: "Légumes", price: 1.5, stock: 10, unit: "botte", emoji: "🌿"},
   { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 0, unit: "botte", emoji: "🧅"},
+  { id: 14, name: "Concombres", category: "Légumes", price: 0.9, stock: 8, unit: "pièce", emoji: "🥒"},
 ];
 
 const SLOTS = [
