@@ -18,12 +18,11 @@ const INITIAL_PRODUCTS = [
 ];
 
 const SLOTS = [
+  { id: "lun-am", label: "Lundi matin" },
   { id: "mar-am", label: "Mardi matin" },
-  { id: "mar-pm", label: "Mardi après-midi" },
+  { id: "mer-pm", label: "Mercredi après-midi" },
+  { id: "ven-am", label: "Vendredi matin" },
   { id: "sam-am", label: "Samedi matin" },
-  { id: "sam-pm", label: "Samedi après-midi" },
-  { id: "dim-am", label: "Dimanche matin" },
-  { id: "dim-pm", label: "Dimanche après-midi" },
 ];
 
 const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜"];
