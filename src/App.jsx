@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 
 const INITIAL_PRODUCTS = [
-  { id: 1, name: "Courgettes vertes", category: "Légumes", price: 0.9, stock: 20, unit: "pièce", emoji: "🥒"},
-  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 14, unit: "pièce", emoji: "🥒"},
-  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 4, unit: "pièce", emoji: "🥒"},
-  { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 10, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
-  { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 5, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
-  { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 5, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
+  { id: 1, name: "Courgettes vertes", category: "Légumes", price: 0.9, stock: 10, unit: "pièce", emoji: "🥒"},
+  { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 34, unit: "pièce", emoji: "🥒"},
+  { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 0.7, stock: 5, unit: "pièce", emoji: "🥒"},
+  { id: 4, name: "Petite salade verte", category: "Légumes", price: 1.2, stock: 0, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
+  { id: 5, name: "Épinards", category: "Légumes", price: 2, stock: 0, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
+  { id: 6, name: "Poirées", category: "Légumes", price: 2, stock: 0, unit: "botte", emoji: "🥬", desc: "Botte d'environ 10 branches" },
   { id: 7, name: "Radis noirs", category: "Légumes", price: 0.85, stock: 0, unit: "pièce", emoji: "🫜"},
-  { id: 8, name: "Navets", category: "Légumes", price: 0.4, stock: 5, unit: "pièce", emoji: "🫜"},
-  { id: 9, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 9, unit: "pièce", emoji: "🥒"},
-  { id: 10, name: "Concombres ovales", category: "Légumes", price: 0.5, stock: 13, unit: "pièce", emoji: "🥒"},
-  { id: 11, name: "Céléris branches", category: "Légumes", price: 2, stock: 1, unit: "botte", emoji: "🌿"},
-  { id: 12, name: "Persil plat", category: "Légumes", price: 1.5, stock: 10, unit: "botte", emoji: "🌿"},
-  { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 0, unit: "botte", emoji: "🧅"},
-  { id: 14, name: "Concombres", category: "Légumes", price: 0.9, stock: 8, unit: "pièce", emoji: "🥒"},
+  { id: 8, name: "Navets", category: "Légumes", price: 0.4, stock: 0, unit: "pièce", emoji: "🫜"},
+  { id: 9, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 30, unit: "pièce", emoji: "🥒"},
+  { id: 10, name: "Grands concombres", category: "Légumes", price: 0.9, stock: 15, unit: "pièce", emoji: "🥒"},
+  { id: 11, name: "Céléris branches", category: "Légumes", price: 2, stock: 0, unit: "botte", emoji: "🌿"},
+  { id: 12, name: "Persil plat", category: "Légumes", price: 1.5, stock: 0, unit: "botte", emoji: "🌿"},
+  { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 1, unit: "botte", emoji: "🧅"},
+  { id: 14, name: "Tomates rouges", category: "Légumes", price: 0.5, stock: 20, unit: "pièce", emoji: "🍅"},
 ];
 
 const SLOTS = [
