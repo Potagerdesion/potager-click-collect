@@ -21,6 +21,8 @@ const SEED_PRODUCTS = [
   { id: 16, name: "Tomates coeur de boeuf", category: "Légumes", price: 0.8, stock: 10, unit: "pièce", emoji: "🍅"},
 ];
 
+const PRODUCTS_VERSION = "1";
+
 const store = getStore({
   name: "products",
   siteID: process.env.NETLIFY_SITE_ID,
