@@ -30,17 +30,28 @@ const store = getStore({
 exports.handler = async (event) => {
 
   if (event.httpMethod === "GET") {
-    let products = await store.get("list", { type: "json" });
-    if (!products) {
-      products = SEED_PRODUCTS;
-      await store.setJSON("list", products);
-    }
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(products),
-    };
+
+  let products = await store.get("list", { type: "json" });
+  const version = await store.get("version");
+
+  if (!products || version !== PRODUCTS_VERSION) {
+
+    products = SEED_PRODUCTS;
+
+    await store.setJSON("list", products);
+    await store.set("version", PRODUCTS_VERSION);
+
+    console.log("Produits mis à jour depuis GitHub");
   }
+
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(products),
+  };
+}
 
   if (event.httpMethod === "POST") {
     const pin = event.headers["x-admin-pin"];
