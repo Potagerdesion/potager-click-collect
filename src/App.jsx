@@ -17,6 +17,7 @@ const INITIAL_PRODUCTS = [
   { id: 14, name: "Tomates rouges", category: "Légumes", price: 0.5, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 15, name: "Tomates cerises", category: "Légumes", price: 0.25, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 16, name: "Tomates coeur de boeuf", category: "Légumes", price: 0.8, stock: 10, unit: "pièce", emoji: "🍅"},
+  { id: 17, name: "Pot de miel de la Colline", category: "Autres", price: 8, stock: 50, unit: "pièce", emoji: "🍯"},
 ];
 
 const SLOTS = [
@@ -27,7 +28,7 @@ const SLOTS = [
   { id: "sam-am", label: "Samedi matin" },
 ];
 
-const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜"];
+const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜","🍯"];
 
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
@@ -109,8 +110,8 @@ function ProductForm({ initial, onSave, onCancel }) {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
           <div>
-            <label style={labelStyle}>Catégorie</label>
-            <select value={form.category} onChange={e => set("category", e.target.value)} style={inputStyle}>
+            <label style={labelStyle}>égorie</label>
+            <select value={form.egory} onChange={e => set("category", e.target.value)} style={inputStyle}>
               <option>Légumes</option>
               <option>Fruits</option>
               <option>Herbes</option>
