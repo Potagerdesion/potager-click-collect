@@ -1,7 +1,8 @@
 const { getStore } = require("@netlify/blobs");
 
-// Liste de produits utilisée uniquement au tout premier lancement,
-// pour initialiser le stockage si celui-ci est encore vide.
+// Liste de produits utilisée pour initialiser le stockage au tout premier
+// lancement, ET pour ajouter automatiquement les nouveaux produits que tu
+// crées ici (sans jamais écraser le stock réel des produits déjà existants).
 const SEED_PRODUCTS = [
   { id: 1, name: "Courgettes vertes", category: "Légumes", price: 0.9, stock: 12, unit: "pièce", emoji: "🥒"},
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 0.9, stock: 18, unit: "pièce", emoji: "🥒"},
@@ -23,8 +24,6 @@ const SEED_PRODUCTS = [
   { id: 18, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
 ];
 
-const PRODUCTS_VERSION = "2";
-
 const store = getStore({
   name: "products",
   siteID: process.env.NETLIFY_SITE_ID,
@@ -32,30 +31,36 @@ const store = getStore({
 });
 
 exports.handler = async (event) => {
-
   if (event.httpMethod === "GET") {
+    let products = await store.get("list", { type: "json" });
 
-  let products = await store.get("list", { type: "json" });
-  const version = await store.get("version");
+    if (!products) {
+      // Tout premier lancement : le store est vide, on l'initialise.
+      products = SEED_PRODUCTS;
+      await store.setJSON("list", products);
+      console.log("Store initialisé avec SEED_PRODUCTS");
+    } else {
+      // Le store existe déjà : on ajoute uniquement les produits
+      // qui n'y sont pas encore (nouveaux id), sans toucher aux
+      // produits existants ni à leur stock actuel.
+      const existingIds = new Set(products.map((p) => p.id));
+      const newProducts = SEED_PRODUCTS.filter((p) => !existingIds.has(p.id));
 
-  if (!products || version !== PRODUCTS_VERSION) {
+      if (newProducts.length > 0) {
+        products = [...products, ...newProducts];
+        await store.setJSON("list", products);
+        console.log(`${newProducts.length} nouveau(x) produit(s) ajouté(s) depuis le code`);
+      }
+    }
 
-    products = SEED_PRODUCTS;
-
-    await store.setJSON("list", products);
-    await store.set("version", PRODUCTS_VERSION);
-
-    console.log("Produits mis à jour depuis GitHub");
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(products),
+    };
   }
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(products),
-  };
-}
 
   if (event.httpMethod === "POST") {
     const pin = event.headers["x-admin-pin"];
@@ -63,7 +68,6 @@ exports.handler = async (event) => {
     if (pin !== expectedPin) {
       return { statusCode: 401, body: JSON.stringify({ error: "PIN invalide" }) };
     }
-
     try {
       const products = JSON.parse(event.body);
       if (!Array.isArray(products)) throw new Error("Format invalide");
