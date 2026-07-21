@@ -19,7 +19,8 @@ const SEED_PRODUCTS = [
   { id: 14, name: "Tomates rouges", category: "Légumes", price: 0.5, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 15, name: "Tomates cerises", category: "Légumes", price: 0.25, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 16, name: "Tomates coeur de boeuf", category: "Légumes", price: 0.8, stock: 10, unit: "pièce", emoji: "🍅"},
-  { id: 17, name: "Pot de miel de la Colline", category: "Autres", price: 8, stock: 50, unit: "pièce", emoji: "🍯"},
+  { id: 17, name: "Pot de miel de la Colline, 250g", category: "Autres", price: 9, stock: 50, unit: "pièce", emoji: "🍯"},
+  { id: 18, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
 ];
 
 const PRODUCTS_VERSION = "1";
