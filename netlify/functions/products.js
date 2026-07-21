@@ -16,7 +16,7 @@ const SEED_PRODUCTS = [
   { id: 10, name: "Moyens concombres", category: "Légumes", price: 0.8, stock: 20, unit: "pièce", emoji: "🥒"},
   { id: 11, name: "Céléris branches", category: "Légumes", price: 2, stock: 5, unit: "botte", emoji: "🌿"},
   { id: 12, name: "Persil plat", category: "Légumes", price: 1.5, stock: 5, unit: "botte", emoji: "🌿"},
-  { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 1, unit: "botte", emoji: "🧅"},
+  { id: 13, name: "Petits oignons blancs", category: "Légumes", price: 1.7, stock: 0, unit: "botte", emoji: "🧅"},
   { id: 14, name: "Tomates rouges", category: "Légumes", price: 0.5, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 15, name: "Tomates cerises", category: "Légumes", price: 0.25, stock: 20, unit: "pièce", emoji: "🍅"},
   { id: 16, name: "Tomates coeur de boeuf", category: "Légumes", price: 0.8, stock: 10, unit: "pièce", emoji: "🍅"},
