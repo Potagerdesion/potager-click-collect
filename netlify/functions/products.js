@@ -23,7 +23,7 @@ const SEED_PRODUCTS = [
   { id: 18, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
 ];
 
-const PRODUCTS_VERSION = "1";
+const PRODUCTS_VERSION = "2";
 
 const store = getStore({
   name: "products",
