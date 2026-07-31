@@ -1,15 +1,25 @@
 const { getStore } = require("@netlify/blobs");
 
 // Liste de produits utilisée pour initialiser le stockage au tout premier
-// lancement, ET pour ajouter automatiquement les nouveaux produits que tu
-// crées ici (sans jamais écraser le stock réel des produits déjà existants).
+// lancement, ET comme source de vérité pour le nom/prix/unité/emoji de
+// chaque produit. Le STOCK, lui, n'est JAMAIS pris depuis cette liste une
+// fois le produit créé : il vient toujours de Netlify Blobs (ventes,
+// ajustements admin...).
+//
+// -> Pour AJOUTER un produit : ajoute une ligne avec un nouvel id (jamais
+//    utilisé auparavant).
+// -> Pour MODIFIER un produit existant (nom, prix, unité, emoji,
+//    catégorie) : modifie directement sa ligne ici, le changement sera
+//    pris en compte au prochain chargement.
+// -> Pour changer le STOCK d'un produit existant : passe par le panneau
+//    admin, pas par ce fichier (sinon ça n'aura aucun effet).
 const SEED_PRODUCTS = [
   { id: 1, name: "Courgettes vertes", category: "Légumes", price: 2.5, stock: 14, unit: "kg", emoji: "🥒"},
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 3, stock: 13, unit: "kg", emoji: "🥒"},
   { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 2.5, stock: 2, unit: "kg", emoji: "🥒"},
   { id: 4, name: "Salades vertes", category: "Légumes", price: 1.8, stock: 3, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
   { id: 5, name: "Tétragone cornue (épinard d'été)", category: "Légumes", price: 12, stock: 10, unit: "kg", emoji: "🥬" },
-  { id: 5, name: "Poirées", category: "Légumes", price: 2, stock: 10, unit: "botte", emoji: "🥬" },
+  { id: 20, name: "Poirées", category: "Légumes", price: 2, stock: 10, unit: "botte", emoji: "🥬" },
   { id: 6, name: "Petits concombres", category: "Légumes", price: 0.5, stock: 12, unit: "pièce", emoji: "🥒"},
   { id: 7, name: "Moyens concombres", category: "Légumes", price: 0.8, stock: 45, unit: "pièce", emoji: "🥒"},
   { id: 8, name: "Oignons blancs", category: "Légumes", price: 1.2, stock: 10, unit: "pièce", emoji: "🧅"},
@@ -42,16 +52,32 @@ exports.handler = async (event) => {
       await store.setJSON("list", products);
       console.log("Store initialisé avec SEED_PRODUCTS");
     } else {
-      // Le store existe déjà : on ajoute uniquement les produits
-      // qui n'y sont pas encore (nouveaux id), sans toucher aux
-      // produits existants ni à leur stock actuel.
+      const seedById = new Map(SEED_PRODUCTS.map((p) => [p.id, p]));
       const existingIds = new Set(products.map((p) => p.id));
+
+      // Produits déjà existants : on reprend toutes les infos à jour
+      // depuis le code (nom, prix, unité, emoji, catégorie, desc...)
+      // mais on garde le STOCK actuel stocké dans Blobs, car lui seul
+      // reflète les ventes/ajustements réels.
+      let updatedCount = 0;
+      products = products.map((existing) => {
+        const seed = seedById.get(existing.id);
+        if (!seed) return existing; // produit retiré du code : on le laisse tel quel
+        const merged = { ...seed, stock: existing.stock };
+        if (JSON.stringify(merged) !== JSON.stringify(existing)) updatedCount++;
+        return merged;
+      });
+
+      // Nouveaux produits (id jamais vu) : on les ajoute avec leur stock initial.
       const newProducts = SEED_PRODUCTS.filter((p) => !existingIds.has(p.id));
 
       if (newProducts.length > 0) {
         products = [...products, ...newProducts];
-        await store.setJSON("list", products);
         console.log(`${newProducts.length} nouveau(x) produit(s) ajouté(s) depuis le code`);
+      }
+
+      if (updatedCount > 0 || newProducts.length > 0) {
+        await store.setJSON("list", products);
       }
     }
 
