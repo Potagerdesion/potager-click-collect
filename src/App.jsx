@@ -17,7 +17,7 @@ const INITIAL_PRODUCTS = [
   { id: 13, name: "Tomates coeur de boeuf", category: "Légumes", price: 5, stock: 5, unit: "kg", emoji: "🍅"},
   { id: 14, name: "Persil plat", category: "Autres", price: 1.5, stock: 5, unit: "botte", emoji: "🌿"},
   { id: 15, name: "Laurier feuilles", category: "Autres", price: 1, stock: 5, unit: "branche", emoji: "🌿"},
-  { id: 16, name: "Estragon", category: "Autres", price: 1.5, stock: 5, unit: "kg", emoji: "🌿"},
+  { id: 16, name: "Estragon", category: "Autres", price: 1.5, stock: 5, unit: "bouquet", emoji: "🌿"},
   { id: 17, name: "Basilic", category: "Autres", price: 1.5, stock: 5, unit: "bouquet", emoji: "🌿"},
   { id: 18, name: "Pot de miel de la Colline, 250g", category: "Autres", price: 9, stock: 50, unit: "pièce", emoji: "🍯"},
   { id: 19, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
