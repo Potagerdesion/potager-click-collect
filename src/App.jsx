@@ -425,12 +425,16 @@ function AboutPage({ onBack }) {
 export default function App() {
   const [products, setProducts] = useState(INITIAL_PRODUCTS);
 
-  useEffect(() => {
-    fetch("/api/products")
-      .then((r) => r.json())
-      .then((data) => { if (Array.isArray(data)) setProducts(data); })
-      .catch(() => {});
-  }, []);
+useEffect(() => {
+  console.log("Chargement des produits");
+
+  fetch("/api/products?t=" + Date.now())
+    .then((r) => r.json())
+    .then((data) => {
+      console.log(data);
+      if (Array.isArray(data)) setProducts(data);
+    });
+}, []);
   const [cart, setCart] = useState({});
   const [view, setView] = useState("shop");
   const [orderInfo, setOrderInfo] = useState(null);
