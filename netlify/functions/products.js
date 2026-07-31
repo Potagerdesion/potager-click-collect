@@ -32,8 +32,8 @@ const SEED_PRODUCTS = [
   { id: 15, name: "Laurier feuilles", category: "Autres", price: 1, stock: 5, unit: "branche", emoji: "🌿"},
   { id: 16, name: "Estragon", category: "Autres", price: 1.5, stock: 5, unit: "bouquet", emoji: "🌿"},
   { id: 17, name: "Basilic", category: "Autres", price: 1.5, stock: 5, unit: "bouquet", emoji: "🌿"},
-  { id: 18, name: "Pot de miel de la Colline, 250g", category: "Autres", price: 9, stock: 50, unit: "pièce", emoji: "🍯"},
-  { id: 19, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
+  { id: 18, name: "Pot de miel de la Colline, 250g", category: "Autres", price: 5, stock: 50, unit: "pièce", emoji: "🍯"},
+  { id: 19, name: "Pot de miel de la Colline, 500g", category: "Autres", price: 9, stock: 50, unit: "pièce", emoji: "🍯"},
 ];
 
 const store = getStore({
@@ -52,33 +52,20 @@ exports.handler = async (event) => {
       await store.setJSON("list", products);
       console.log("Store initialisé avec SEED_PRODUCTS");
     } else {
-      const seedById = new Map(SEED_PRODUCTS.map((p) => [p.id, p]));
-      const existingIds = new Set(products.map((p) => p.id));
+const existingById = new Map(products.map((p) => [p.id, p]));
 
-      // Produits déjà existants : on reprend toutes les infos à jour
-      // depuis le code (nom, prix, unité, emoji, catégorie, desc...)
-      // mais on garde le STOCK actuel stocké dans Blobs, car lui seul
-      // reflète les ventes/ajustements réels.
-      let updatedCount = 0;
-      products = products.map((existing) => {
-        const seed = seedById.get(existing.id);
-        if (!seed) return existing; // produit retiré du code : on le laisse tel quel
-        const merged = { ...seed, stock: existing.stock };
-        if (JSON.stringify(merged) !== JSON.stringify(existing)) updatedCount++;
-        return merged;
-      });
+products = SEED_PRODUCTS.map((seed) => {
+  const existing = existingById.get(seed.id);
 
-      // Nouveaux produits (id jamais vu) : on les ajoute avec leur stock initial.
-      const newProducts = SEED_PRODUCTS.filter((p) => !existingIds.has(p.id));
+  return {
+    ...seed,
+    stock: existing ? existing.stock : seed.stock,
+  };
+});
 
-      if (newProducts.length > 0) {
-        products = [...products, ...newProducts];
-        console.log(`${newProducts.length} nouveau(x) produit(s) ajouté(s) depuis le code`);
-      }
-
-      if (updatedCount > 0 || newProducts.length > 0) {
-        await store.setJSON("list", products);
-      }
+// On remplace complètement la liste par celle du code
+// tout en conservant les stocks existants.
+await store.setJSON("list", products);
     }
 
     return {
