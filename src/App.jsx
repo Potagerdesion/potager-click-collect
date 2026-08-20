@@ -4,6 +4,7 @@ const INITIAL_PRODUCTS = [
   { id: 1, name: "Courgettes vertes", category: "Légumes", price: 2.5, stock: 10, unit: "kg", emoji: "🥒" },
   { id: 2, name: "Courgettes rondes", category: "Légumes", price: 3, stock: 8, unit: "kg", emoji: "🥒" },
   { id: 3, name: "Courgettes jaunes", category: "Légumes", price: 2.5, stock: 2, unit: "kg", emoji: "🥒" },
+  { id: 22, name: "Carottes", category: "Légumes", price: 2.5, stock: 3, unit: "botte", emoji: "🥕" },
   { id: 4, name: "Salades vertes", category: "Légumes", price: 1.8, stock: 0, unit: "pièce", emoji: "🥗", desc: "Batavia, laitue, mesclun selon saison" },
   { id: 5, name: "Tétragone cornue (épinard d'été)", category: "Légumes", price: 10, stock: 10, unit: "kg", emoji: "🥬" },
   { id: 20, name: "Poirées", category: "Légumes", price: 2, stock: 10, unit: "botte", emoji: "🥬" },
