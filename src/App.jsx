@@ -16,8 +16,8 @@ const INITIAL_PRODUCTS = [
   { id: 10, name: "Tomates cerises", category: "Légumes", price: 4.5, stock: 3, unit: "kg", emoji: "🍅" },
   { id: 11, name: "Tomates moyen calibre", category: "Légumes", price: 4.5, stock: 5, unit: "kg", emoji: "🍅" },
   { id: 12, name: "Tomates gros calibre", category: "Légumes", price: 4.5, stock: 0, unit: "kg", emoji: "🍅" },
-  { id: 23, name: "Poivrons", category: "Légumes", price: 1,2, stock: 10, unit: "pièces", emoji: "🍅" },
-  { id: 24, name: "Piments", category: "Autres", price: 0.5, stock: 30, unit: "pièce", emoji: "🍅" },
+  { id: 23, name: "Poivrons", category: "Légumes", price: 1,2, stock: 10, unit: "pièces", emoji: "🫑" },
+  { id: 24, name: "Piments", category: "Autres", price: 0.5, stock: 30, unit: "pièce", emoji: "🌶️" },
   { id: 14, name: "Persil plat", category: "Autres", price: 1.5, stock: 5, unit: "botte", emoji: "🌿" },
   { id: 15, name: "Laurier feuilles", category: "Autres", price: 1, stock: 5, unit: "branche", emoji: "🌿" },
   { id: 16, name: "Estragon", category: "Autres", price: 1.5, stock: 5, unit: "bouquet", emoji: "🌿" },
@@ -35,7 +35,7 @@ const SLOTS = [
   { id: "sam-am", label: "Samedi matin" },
 ];
 
-const EMOJIS = ["🍅","🥒","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜","🍯"];
+const EMOJIS = ["🍅","🥒","🌶️","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜","🍯"];
 
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
