@@ -28,6 +28,8 @@ const INITIAL_PRODUCTS = [
   { id: 18, name: "Miel de printemps de la Colline, 250g", category: "Autres", price: 5, stock: 20, unit: "pièce", emoji: "🍯" },
   { id: 19, name: "Miel de printemps de la Colline, 500g", category: "Autres", price: 9, stock: 20, unit: "pièce", emoji: "🍯" },
   { id: 21, name: "Miel de fleurs de la Colline, 500g", category: "Autres", price: 10, stock: 20, unit: "pièce", emoji: "🍯" },
+  { id: 28, name: "Guacamole de courgettes", category: "Autres", price: 4, stock: 10, unit: "le pot", emoji: "🫙" }
+  { id: 29, name: "Sauce Relish", category: "Autres", price: 4.5, stock: 10, unit: "le pot", emoji: "🫙" }
 ];
 
 const SLOTS = [
@@ -38,7 +40,7 @@ const SLOTS = [
   { id: "sam-am", label: "Samedi matin" },
 ];
 
-const EMOJIS = ["🍅","🥒","🌶️","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜","🍯"];
+const EMOJIS = ["🍅","🥒","🌶️","🍓","🥬","🥔","🫐","🫘","🍑","🧅","🧄","🥦","🥕","🌽","🍆","🫑","🍇","🍊","🍋","🍎","🍐","🍒","🫒","🌿","🥑","🫚","🥗","🫜","🍯","🫙"];
 
 const fmt = (n) => Number(n).toFixed(2).replace(".", ",") + " €";
 
